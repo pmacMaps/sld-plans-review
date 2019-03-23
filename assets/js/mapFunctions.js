@@ -26,6 +26,31 @@ function setPopupMaxWidth(windowWidth) {
     return maxWidth;
 }
 
+// create a legend element for a map service
+function createMapLegend(url,element) {
+	// legend plugin uses dynamic map layer object
+	var dynamicMapService = L.esri.dynamicMapLayer({url: url});
+	
+	dynamicMapService.legend(function(error, legend) {
+		var html = '';
+
+		if(!error) {
+			for (var i = 0, len = legend.layers.length; i < len; i++) {
+				html += '<ul>'
+				html += '<li><strong>' + legend.layers[i].layerName + '</strong></li>';
+				for(var j = 0, jj = legend.layers[i].legend.length; j < jj; j++){
+					html += L.Util.template('<li><img width="{width}" height="{height}" src="data:{contentType};base64,{imageData}"><span>{label}</span></li>', legend.layers[i].legend[j]);
+				}
+				html += '</ul>';
+			}        
+
+		} else {
+			html+= '<h4>There was an error creating the legend</h4>';
+		}
+		
+		$(element).prepend(html);		
+	});
+}
 
 /**********************
 *** Event Listeners ***

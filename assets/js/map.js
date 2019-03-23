@@ -168,52 +168,10 @@ addressLocator(windowArea);
 // Run locate me module
 locateControl();
 
-// Create Map Legend
-legendRoadsMuni = L.esri.dynamicMapLayer({url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer'});
-legendPlanSubmissions = L.esri.dynamicMapLayer({url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/PlanSubmissionsReview/MapServer'});
+/*** Add Legend Elements ***/
+createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer', '#map-legend-content');
 
-/*** Legend ***/
-// plan review sites
-legendPlanSubmissions.legend(function(error, legend){
-    var html = '';
-    
-    if(!error) {
-        for (var i = 0, len = legend.layers.length; i < len; i++) {
-            html += '<ul>'
-            html += '<li><strong>' + legend.layers[i].layerName + '</strong></li>';
-            for(var j = 0, jj = legend.layers[i].legend.length; j < jj; j++){
-                html += L.Util.template('<li><img width="{width}" height="{height}" src="data:{contentType};base64,{imageData}"><span>{label}</span></li>', legend.layers[i].legend[j]);
-            }
-            html += '</ul>';
-        }        
-        
-    } else {
-        html+= '<h4>There was an error creating the legend</h4>';
-    }
-    //document.getElementById('map-legend-content').innerHTML = html;
-    $('#map-legend-content').prepend(html);
-});
-
-// roads & municipality
-legendRoadsMuni.legend(function(error, legend){
-    var html = '';
-    
-    if(!error) {
-        for (var i = 0, len = legend.layers.length; i < len; i++) {
-            html += '<ul>'
-            html += '<li><strong>' + legend.layers[i].layerName + '</strong></li>';
-            for(var j = 0, jj = legend.layers[i].legend.length; j < jj; j++){
-                html += L.Util.template('<li><img width="{width}" height="{height}" src="data:{contentType};base64,{imageData}"><span>{label}</span></li>', legend.layers[i].legend[j]);
-            }
-            html += '</ul>';
-        }        
-        
-    } else {
-        html+= '<h4>There was an error creating the legend</h4>';
-    }
-    //document.getElementById('map-legend-content').innerHTML = html;
-    $('#map-legend-content').append(html);
-});
+createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/PlanSubmissionsReview/MapServer', '#map-legend-content');
 
 /*** Remove loading screen after services loaded ***/
 loadScreenTimer = window.setInterval(function() { 
