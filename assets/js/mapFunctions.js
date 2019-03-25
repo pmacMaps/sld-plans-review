@@ -29,11 +29,9 @@ function setPopupMaxWidth(windowWidth) {
 // create a legend element for a map service
 function createMapLegend(url,element) {
 	// legend plugin uses dynamic map layer object
-	var dynamicMapService = L.esri.dynamicMapLayer({url: url});
-	
+	var dynamicMapService = L.esri.dynamicMapLayer({url: url});	
 	dynamicMapService.legend(function(error, legend) {
 		var html = '';
-
 		if(!error) {
 			for (var i = 0, len = legend.layers.length; i < len; i++) {
 				html += '<ul>'
@@ -42,14 +40,56 @@ function createMapLegend(url,element) {
 					html += L.Util.template('<li><img width="{width}" height="{height}" src="data:{contentType};base64,{imageData}"><span>{label}</span></li>', legend.layers[i].legend[j]);
 				}
 				html += '</ul>';
-			}        
-
-		} else {
+			}
+        } else {
 			html+= '<h4>There was an error creating the legend</h4>';
-		}
-		
+		}		
 		$(element).prepend(html);		
 	});
+}
+
+function returnDomainText(value) {
+    var landUse = null;    
+    switch (value) {
+            case 1:
+                landUse = 'Residential';
+                break;
+            case 2:
+                landUse = 'Commercial';
+                break;
+            case 3:
+                landUse = 'Institutional';
+                break;
+            case 4:
+                landUse = 'Industrial';
+                break;
+            case 5:
+                landUse = 'Agriculture';
+                break;
+            case 6:
+                landUse = 'Woodland';
+                break;
+            default:            
+                landUse = 'Other';
+            }
+        return landUse;	
+}
+
+// Convert JSON date format to plain language format
+function convertJSONDateToString(jsonDate) {
+    var shortDate = null;
+    if (jsonDate) {
+        var regex = /-?\d+/;
+        var matches = regex.exec(jsonDate);
+        var dt = new Date(parseInt(matches[0]));
+        var month = dt.getMonth() + 1;
+        var monthString = month > 9 ? month : '0' + month;
+        var day = dt.getDate();
+        var dayString = day > 9 ? day : '0' + day;
+        var year = dt.getFullYear();
+        shortDate = monthString + '-' + dayString + '-' + year;
+    }
+    return shortDate;
 }
 
 /**********************

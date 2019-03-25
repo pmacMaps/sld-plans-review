@@ -1,7 +1,5 @@
 'use strict';
 /*** Variables ***/
-// boolean if browser is on a mobile device or not
-var isMobileDevice = L.Browser.mobile;
 // viewport
 var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -20,7 +18,6 @@ var planSubmissions;
 var legendPlanSubmissions;
 /* loading screen */
 var loadScreenTimer;
-
 /*** Functions ***/
 //  Basemap Changer
 function zoomToMuni(selectedMuni) {    
@@ -29,15 +26,13 @@ function zoomToMuni(selectedMuni) {
     // close basemap panel
     $('#panelMuniZoom').collapse("hide");
 }
-
 // function to handle load event for map services
 function processLoadEvent(service) {
    // service request success event
    service.on('requestsuccess', function(e) {     
       // set isLoaded property to true
       service.options.isLoaded = true;      
-   });   
-  
+   });     
    // request error event
    service.on('requesterror', function(e) {      
       // if the error url matches the url for the map service, display error messages
@@ -55,7 +50,6 @@ function processLoadEvent(service) {
       }
    });
 }
-
 /*** Map & Controls ***/
 // PA State Plane South (ft) projection
 spcPACrs = new L.Proj.CRS('EPSG:2272', '+proj=lcc +lat_1=40.96666666666667 +lat_2=39.93333333333333 +lat_0=39.33333333333334 +lon_0=-77.75 +x_0=600000 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs',  {
@@ -73,7 +67,6 @@ spcPACrs = new L.Proj.CRS('EPSG:2272', '+proj=lcc +lat_1=40.96666666666667 +lat_
       0.5208333333333333
     ]
   });
-
 map = L.map('map', {
    center: homeCoords,
    zoom: 0,
@@ -82,7 +75,6 @@ map = L.map('map', {
    minZoom: 0,
    maxZoom: 7
 });
-
 // Zoom Home Control
 zoomHomeControl = L.Control.zoomHome({
     position: 'topleft',
@@ -90,8 +82,8 @@ zoomHomeControl = L.Control.zoomHome({
     homeCoordinates: homeCoords,
     homeZoom: 0    
 }).addTo(map);
-
 /*** Layers ***/
+// 2018 Imagery - cached map service
 imagery2018 = L.esri.tiledMapLayer({
     url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/Imagery2018/MapServer',
     maxZoom: 7,
@@ -101,7 +93,7 @@ imagery2018 = L.esri.tiledMapLayer({
     errorTileUrl: '//downloads2.esri.com/support/TechArticles/blank256.png',
     isLoaded: false
   });
-
+// Roads & Municipal Boundaries - cached map service
 roadsMunicipality = L.esri.tiledMapLayer({
     url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer',
     maxZoom: 7,
@@ -111,52 +103,39 @@ roadsMunicipality = L.esri.tiledMapLayer({
     errorTileUrl: '//downloads2.esri.com/support/TechArticles/blank256.png',
     isLoaded: false
   });
-
+// Plan Review Features - map service
 planSubmissions = L.esri.featureLayer({
     url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/PlanSubmissionsReview/MapServer/0',
     isLoaded: false
 });
-
-// Add tooltip to MDJ Offices
-/*
-function bindTooltipMDJOffices() {
-    mdjOffices.bindTooltip(function(evt) {
-        return L.Util.template('<span class="feat-tooltip">District {District} Office</span>', evt.feature.properties);
-    }, {opacity: 1, interactive: true});
-}
-
-// Add Popup to MDJ Offices
-mdjOffices.bindPopup(function(evt, layer) {    
-    // for non-mobile devices, close tool tip when popup opens
-    if (!isMobileDevice) {
-        evt.on('popupopen', function() {
-            mdjOffices.unbindTooltip();
-        });
-        
-        evt.on('popupclose', bindTooltipMDJOffices);
-    }
-    
+// format popup for plan review featres
+planSubmissions.bindPopup(function(evt, layer) {    
+    // reformat date field value
+    var jsonDate = evt.feature.properties.DATE;
+    var formattedDate = convertJSONDateToString(jsonDate);
+    // reformat land use coded domain value
+    var landUseField = evt.feature.properties.LANDUSE;
+    var formattedLandUse = returnDomainText(landUseField);    
     // return popup content
-    return L.Util.template('<div class="feat-popup"><h2>Judge: {NAME} / District: {District}</h2><hr /><p>The address for this office is {LOCATION}, {CITY}, {STATE} {ZIP}.</p>The telephone number is {PHONE}.<p>Public Defender Day is {PDD}.<p></div>', evt.feature.properties);		
+    var popupContent = '<div class="feat-popup">';
+    popupContent += '<h3>{NAME}</h3>';
+    popupContent += '<ul>';
+    popupContent += '<li>Land Use: ' + formattedLandUse  + '</li>';
+    popupContent += '<li>Date Reviewed: ' + formattedDate + '</li>';
+    popupContent += '<li>Square Footage: {SQFT}</li>';        
+    popupContent += '</ul>';
+    popupContent += '<h4>Description:</h4>';
+    popupContent += '<p>{DESCRIPTION}</p>';
+    popupContent += '</div>';    
+    return L.Util.template(popupContent, evt.feature.properties);		
 }, {closeOnClick: true, maxHeight: setPopupMaxHeight(windowArea), maxWidth: setPopupMaxWidth(windowWidth)});
-8
-*/
 
-// Add tool tip to MDJ offices for non-mobile browsers
-/*
-if (!isMobileDevice) {
-    bindTooltipMDJOffices();
-}
-*/
-
-// list of map services
+// array of map services to run loading function on
 mapServices = [imagery2018,roadsMunicipality, planSubmissions];
-
 // call load/error events function on layers
 for (var i = 0; i < mapServices.length; i++) {
     processLoadEvent(mapServices[i]);    
 }
-
 // add services to map
 for (var i = 0; i < mapServices.length; i++) {
     mapServices[i].addTo(map);
@@ -164,13 +143,10 @@ for (var i = 0; i < mapServices.length; i++) {
 
 // Run address locator module
 addressLocator(windowArea);
-
 // Run locate me module
 locateControl();
-
-/*** Add Legend Elements ***/
+// Create Map Legend
 createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer', '#map-legend-content');
-
 createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/PlanSubmissionsReview/MapServer', '#map-legend-content');
 
 /*** Remove loading screen after services loaded ***/
