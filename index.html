@@ -88,6 +88,7 @@
 						<a class="dropdown-toggle hidden-xs" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span><span class="menu-label">   Menu</span></a>
 						<ul class="dropdown-menu">
 							<li><a id="infoNavMenu" class="" role="button" data-target="#panelInfo"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+                            <li><a id="filterNavMenu" class="" role="button" data-target="#panelFilter"><span class="glyphicon glyphicon-filter"></span> Filter Plans by Date Range</a></li>
 							<li><a id="searchNavMenu" class="visible-xs" role="button" data-target="#panelSearch"><span class="glyphicon glyphicon-search"></span> Search</a></li>
                             <li><a id="MuniZoomNavMenu" class="" role="button" data-target="#panelMuniZoom"><span class="glyphicon glyphicon-globe"></span> Zoom To Municipality</a></li>
 							<li><a id="legendNavMenu" class="" role="button" data-target="#panelLegend"><span class="glyphicon glyphicon-list"></span> Legend</a></li>
@@ -125,7 +126,34 @@
                         <p>Vist our <a href="http://ccpa.maps.arcgis.com/home/gallery.html" target="_blank">Map Gallery!</a></p>
 					</div>
 				</div>
-			</div><!-- /. Info Panel -->			
+			</div><!-- /. Info Panel -->
+            <!-- Filter Panel -->
+			 <div id="panelFilter" class="panel panel-default collapse">				
+				<div id="headingFilter" class="panel-heading" role="tab">
+					<div class="panel-title">
+						<a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseFilter" data-parent="#panelAccordion" aria-expanded="true" aria-controls="collapseFilter"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filter Plan Submissions By Date</a>			
+						<a class="panel-close" role="button" data-toggle="collapse" data-target="#panelFilter"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>  
+					</div>
+				</div>
+				<div id="collapseFilter" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFilter">
+					<div class="panel-body">
+						<div class="form-group">
+                            <label for="from">From Date:</label>
+                            <input class="form-control" type="text" id="fromDate" name="from">
+                        </div>
+                        <div class="form-group">
+                            <label for="to">To Date:</label>
+                            <input class="form-control" type="text" id="toDate" name="to">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="setFilter" class="btn btn-default">Apply Filter</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="clearFilter" class="btn btn-default">Clear Filter</button>
+                        </div>
+					</div>
+				</div>
+			</div><!-- /. Filter Panel -->
             <!-- Search Panel -->
 			<div id="panelSearch" class="panel panel-default collapse">							
 				<div id="headingSearch" class="panel-heading" role="tab">
@@ -247,7 +275,7 @@
     <!-- Leaflet Locate -->
     <script src="../../../assets/leaflet/plugins/leaflet-locate-control/v-0.66/L.Control.Locate.min.js"></script>
     <!-- Map Functions -->
-    <script src="assets/js/mapFunctions.js"></script>
+    <script src="assets/js/mapFunctions.js"></script>    
     <!-- Geocode Module -->
     <script src="assets/js/addressLocator.js"></script>
     <!-- Geo Locate Locator Module -->

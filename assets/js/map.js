@@ -176,3 +176,24 @@ $('#layerErrorModal').on('hide.bs.modal', function(e) {
    // clear timer
    window.clearInterval(loadScreenTimer);     
 });
+
+// filter logic
+function clearFilter() {
+    planSubmissions.setWhere("");
+}
+
+function setFilter() {
+    var from = $('#fromDate').val();     
+    var to = $('#toDate').val();
+    // convert to esri rest date field type
+    var where_clause = '"DATE" >= date ' + "'" + from + "'" + ' AND "DATE" <= date' + " '" + to + "'";    
+    planSubmissions.setWhere(where_clause);
+    console.log(where_clause);
+    
+    // get count of features
+    // if no features exist, add message
+    // call clearFilter()
+}
+
+$('#setFilter').click(setFilter);
+$('#clearFilter').click(clearFilter);
