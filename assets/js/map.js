@@ -115,16 +115,24 @@ planSubmissions.bindPopup(function(evt, layer) {
     var formattedDate = convertJSONDateToString(jsonDate);
     // reformat land use coded domain value
     var landUseField = evt.feature.properties.LANDUSE;
-    var formattedLandUse = returnDomainText(landUseField);    
+    var formattedLandUse = returnDomainText(landUseField);
+    // test for null values in square footage field
+    var sqFtField = evt.feature.properties.SQFT;
+    var sqFtVal;
+    if (sqFtField !== null && sqFtField !== '') {
+        sqFtVal = sqFtField;
+    } else {
+        sqFtVal = 'N/A';
+    }
     // return popup content
     var popupContent = '<div class="feat-popup">';
-    popupContent += '<h3>{NAME}</h3>';
+    popupContent += '<h3><span class="gray-text">Plan Name:</span> {NAME}</h3>';
     popupContent += '<ul>';
-    popupContent += '<li>Land Use: ' + formattedLandUse  + '</li>';
-    popupContent += '<li>Date Reviewed: ' + formattedDate + '</li>';
-    popupContent += '<li>Square Footage: {SQFT}</li>';        
+    popupContent += '<li><span class="gray-text">Land Use:</span> ' + formattedLandUse  + '</li>';
+    popupContent += '<li><span class="gray-text">Date Reviewed:</span> ' + formattedDate + '</li>';
+    popupContent += '<li><span class="gray-text">Square Footage:</span> ' + sqFtVal + '</li>';   
     popupContent += '</ul>';
-    popupContent += '<h4>Description:</h4>';
+    popupContent += '<h4><strong>Description:</strong></h4>';
     popupContent += '<p>{DESCRIPTION}</p>';
     popupContent += '</div>';    
     return L.Util.template(popupContent, evt.feature.properties);		
@@ -140,7 +148,6 @@ for (var i = 0; i < mapServices.length; i++) {
 for (var i = 0; i < mapServices.length; i++) {
     mapServices[i].addTo(map);
 }
-
 // Run address locator module
 addressLocator(windowArea);
 // Run locate me module
@@ -148,7 +155,26 @@ locateControl();
 // Create Map Legend
 createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer', '#map-legend-content');
 createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/PlanSubmissionsReview/MapServer', '#map-legend-content');
-
+// filter logic
+function clearFilter() {
+    planSubmissions.setWhere("");
+}
+function setFilter() {
+    // beginning date
+    var from = $('#fromDate').val();     
+    // ending date
+    var to = $('#toDate').val();
+    // where clause for filter
+    var where_clause = '"DATE" >= date ' + "'" + from + "'" + ' AND "DATE" <= date' + " '" + to + "'";  
+    // apply filter
+    planSubmissions.setWhere(where_clause);    
+    // get count of features
+    // if no features exist, add message
+    // call clearFilter()
+}
+// add event listeners
+$('#setFilter').click(setFilter);
+$('#clearFilter').click(clearFilter);
 /*** Remove loading screen after services loaded ***/
 loadScreenTimer = window.setInterval(function() { 
     var backCover = $('#back-cover'),
@@ -168,7 +194,6 @@ loadScreenTimer = window.setInterval(function() {
       console.log('layers still loading');    
     }
 }, 2000);   
-
 // Remove loading screen when warning modal is closed
 $('#layerErrorModal').on('hide.bs.modal', function(e) {
    // remove loading screen
@@ -176,24 +201,3 @@ $('#layerErrorModal').on('hide.bs.modal', function(e) {
    // clear timer
    window.clearInterval(loadScreenTimer);     
 });
-
-// filter logic
-function clearFilter() {
-    planSubmissions.setWhere("");
-}
-
-function setFilter() {
-    var from = $('#fromDate').val();     
-    var to = $('#toDate').val();
-    // convert to esri rest date field type
-    var where_clause = '"DATE" >= date ' + "'" + from + "'" + ' AND "DATE" <= date' + " '" + to + "'";    
-    planSubmissions.setWhere(where_clause);
-    console.log(where_clause);
-    
-    // get count of features
-    // if no features exist, add message
-    // call clearFilter()
-}
-
-$('#setFilter').click(setFilter);
-$('#clearFilter').click(clearFilter);
