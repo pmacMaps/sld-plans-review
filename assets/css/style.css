@@ -1,16 +1,13 @@
 /*** General Settings ***/
-
 html, 
 body {
     margin: 0;
     padding: 0;
     height: 100%;
 }
-
 body {
     color: #333;
 }
-
 /*** Loading Screen ***/
 /* add pre-fixes for flex */
 #back-cover {
@@ -43,46 +40,36 @@ body {
     color: #222;
     z-index: 2000;
 }
-
 #back-cover h1 {
     font-weight: bold;
     font-size: 1.75em;
 }
-
 /* error message modal */
 #layerErrorModal {
    display: none;
    z-index: 2000;
 }
-
 .modal-content {
     max-width: 100%;
     word-wrap: break-word;
 }
-
 /*** Navigation ***/
-
 .calcite-maps .navbar-dark .navbar-info,
 .calcite-maps .navbar-dark .navbar-info:hover {
     color: #fff;
 }
-
 .calcite-maps .navbar-info {
     cursor: default;
 }
-
 .calcite-maps .navbar-title {
     font-size: 1.5em;
 }
-
 .calcite-maps .navbar-subtitle {
     font-size: 0.85em;
 }
-
 span.glyphicon.glyphicon-menu-hamburger {
     font-size: 1.5em;
 }
-
 /* Legend */
 #collapseLegend ul {
 	margin-top: 25px;
@@ -90,33 +77,26 @@ span.glyphicon.glyphicon-menu-hamburger {
 	padding: 0;
 	list-style-type: none;
 }
-
 #collapseLegend ul li {
 	padding-bottom: 5px;
 	font-size: 1.15em;
     font-weight: bold;
 }
-
 /* Menu text */
 .menu-label {
     font-weight: bold;    
 }
-
 .calcite-maps .dropdown-toggle span {
     top: 6px;
 }
-
 /*** Leaflet Controls ****/
-
 .calcite-maps .leaflet-top, .calcite-maps .leaflet-bottom {
     z-index: 500;
 }
-
 .calcite-maps .leaflet-control-attribution {
     position: relative;
     right: 20px;
 }
-
 .calcite-maps .leaflet-control-zoomhome.leaflet-bar > a,
 .calcite-maps .leaflet-control-locate.leaflet-bar > a {
     width: 32px;
@@ -124,101 +104,92 @@ span.glyphicon.glyphicon-menu-hamburger {
 	line-height: 32px;
 	border-radius: 0;
 }
-
 .calcite-maps .leaflet-control-zoomhome,
 .calcite-maps .leaflet-control-locate.leaflet-bar {
 	margin-left: 15px;
 }
-
 .calcite-maps .leaflet-control-locate.leaflet-bar {
     margin-top: 15px;
 }
-
 /* Leaflet Zoom Home */
-
 .calcite-maps.nav-position-top .leaflet-control-zoomhome  {
 	margin-top: 80px;
 }
-
 .calcite-maps.nav-position-top-fixed .leaflet-control-zoomhome {
 	margin-top: 20px;
 }
-
 /* Leaflet Locate */
 .leaflet-control-locate a {
     color: #000;
 }
-
 /*** Panels ***/
+.calcite-maps .panel {
+    min-width: 215px;
+}
 .calcite-maps.nav-position-top-fixed.nav-space-none .panel-container {
     top: 90px;
      z-index: 650;
 }
-
 .panel-title {
     background: #196fa6;
 }
-
 .panel-title > a,
 .calcite-maps .panel-title span.glyphicon.glyphicon-remove {
     color: #fff;
 }
-
 .calcite-maps .panel-title span.glyphicon.glyphicon-remove:hover {
     color: #000;
 }
-
 .panel-body a {
     text-decoration: underline;
 }
-
 /*** Layer Popups ***/
-div.leaflet-pane.leaflet-msOverlay-pane > img {
-    cursor: pointer;
-    pointer-events: auto;
+div.leaflet-popup-content {
+    font-size: 1.15em;
+    color: #000;
 }
-
 div.leaflet-popup-content h3 {
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-weight: bold;
 	text-align: center;	
 }
-
-div.leaflet-popup-content p {
-	font-size: 1.1em;
+div.leaflet-popup-content h4 {
+    font-size: 1.2em;
 }
-
+div.leaflet-popup-content ul {
+    margin-bottom: 20px;
+    padding-left: 5px;
+    list-style-type: square;
+}
+div.leaflet-popup-content span.gray-text {
+    color: #555;
+}
 /*** Media Query ***/
 @media screen and (max-width: 767px) {
     /*** Panels ***/
     .panel-container,
     .panel-group {
         z-index: 2000;
-    }
-    
+    }    
     .calcite-maps .panel-body {
         overflow-y: scroll;
         min-height: 200px;
-    }
-    
+    }    
     #panelSearch .panel-control {
         padding: 5px;
-    }
-    
+    }    
     #panelSearch .panel-body {
         min-height: 350px;
-    }
-   
+    }   
     li.dropdown.open ul.dropdown-menu li:active {
-        background: #75a8c9;              
+        background: #75a8c9;          
     } 
 }
 
 @media screen and (min-width: 768px) and (max-width: 875px) {
     .calcite-maps .navbar-title {
         font-size: 1.05em;
-    }
-    
+    }    
     .calcite-maps .navbar-subtitle {
         font-size: 0.75em;
     }
