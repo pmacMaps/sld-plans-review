@@ -21,8 +21,25 @@ var loadScreenTimer;
 /*** Functions ***/
 //  Basemap Changer
 function zoomToMuni(selectedMuni) {    
-    // magic to zoom to muni
-    console.log(selectedMuni);    
+    // where clause
+    var whereClause = '"MUNI" = ' + "'" + selectedMuni + "'";
+    var query = L.esri.query({
+        url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer/0'
+    });    
+    query.where(whereClause).bounds(function(error, latLngBounds, response) {
+        if (error) {
+            // add message to console
+            console.warn('An error with the query request has occured');
+            console.warn('Code: ' + error.code + '; Message: ' + error.message);
+            // set content of results element
+        } else if (response.features < 1) {        
+         // add message to console
+         console.log('No features selected');
+         // set content of results element
+        } else {
+            map.fitBounds(latLngBounds);
+        }
+    });    
     // close basemap panel
     $('#panelMuniZoom').collapse("hide");
 }
