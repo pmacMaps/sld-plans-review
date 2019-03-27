@@ -97,6 +97,10 @@ function testforFiedlValues(field) {
     }
     return returnVal;
 }
+// re-format numbers with commas
+function returnNumberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 /*** Date Picker ***/
 function getDate( element ) {
       var date;

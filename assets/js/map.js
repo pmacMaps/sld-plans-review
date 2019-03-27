@@ -136,6 +136,10 @@ planSubmissions.bindPopup(function(evt, layer) {
     // test for null values in square footage field
     var sqFtField = evt.feature.properties.SQFT;
     var sqFtVal = testforFiedlValues(sqFtField);
+    // if value numeric, re-format
+    if (sqFtVal !== 'N/A') {
+        sqFtVal = returnNumberWithCommas(sqFtField)
+    }
     // test for null values in units field
     var unitsField = evt.feature.properties.UNITS
     var unitsVal = testforFiedlValues(unitsField);
