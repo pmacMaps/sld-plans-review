@@ -123,6 +123,21 @@ roadsMunicipality = L.esri.tiledMapLayer({
 // Plan Review Features - map service
 planSubmissions = L.esri.featureLayer({
     url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/PlanSubmissionsReview/MapServer/0',
+    onEachFeature: function(feature, layer) {
+        // Pop-up control for small screen sizes
+        if (windowArea < 315000 ) {
+            // Hide leaflet controls when pop-up opens
+            layer.on('popupopen', function() {
+                $('div.leaflet-top').css('opacity', 0);
+                $('div.leaflet-bottom').css('opacity', 0);
+            });            
+            // Display Leaflet controls when pop-up closes
+            layer.on('popupclose', function() {
+                $('div.leaflet-top').css('opacity', 1);
+                $('div.leaflet-bottom').css('opacity', 1);
+            });
+        }
+    },
     isLoaded: false
 });
 // format popup for plan review featres

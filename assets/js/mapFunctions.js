@@ -132,9 +132,31 @@ $( function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
       });    
   });
+// control if filter widget appears on screen
+function controlFilterWidgetUI() {
+    var width = $(window).width();
+    var elements = [$('#panelFilter'), $('#collapseFilter')];    
+    if ( width <= 767) {
+        // add or remove class
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].attr("aria-expanded", "false");            
+            if (elements[i].hasClass("in")) {
+                elements[i].removeClass("in");
+            }
+        }                  
+    } else {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].attr("aria-expanded", "true");
+            if (!elements[i].hasClass("in")) {
+                elements[i].addClass("in");
+            }
+        }               
+    }
+}
 /*** Event Listeners ***/
 $(document).ready(function(){
     mobileNavScroll();
+    controlFilterWidgetUI();
     
     // Basemap changed
     // could use for zoom to muni
@@ -168,6 +190,7 @@ $(document).ready(function(){
     $(window).resize(function() {
         mobileNavScroll();
         attachSearch();
+        controlFilterWidgetUI();
     });
     
     attachSearch();
