@@ -3,7 +3,6 @@
 function mobileNavScroll() {
     $(".navbar-collapse").css({maxHeight: $(window).height() - $(".navbar-header").height() + "px"});
 }
-
 // Set max height of pop-up window 
 function setPopupMaxHeight(windowArea) {
     var maxHeight;
@@ -14,7 +13,6 @@ function setPopupMaxHeight(windowArea) {
     }
     return maxHeight;
 }
-
 // Set max width of pop-up window 
 function setPopupMaxWidth(windowWidth) {
     var maxWidth;
@@ -25,7 +23,6 @@ function setPopupMaxWidth(windowWidth) {
     }
     return maxWidth;
 }
-
 // create a legend element for a map service
 function createMapLegend(url,element) {
 	// legend plugin uses dynamic map layer object
@@ -47,7 +44,7 @@ function createMapLegend(url,element) {
 		$(element).prepend(html);		
 	});
 }
-
+// return text value from domain
 function returnDomainText(value) {
     var landUse = null;    
     switch (value) {
@@ -74,7 +71,6 @@ function returnDomainText(value) {
             }
         return landUse;	
 }
-
 // Convert JSON date format to plain language format
 function convertJSONDateToString(jsonDate) {
     var shortDate = null;
@@ -91,7 +87,16 @@ function convertJSONDateToString(jsonDate) {
     }
     return shortDate;
 }
-
+// test for null or empty string values
+function testforFiedlValues(field) {
+    var returnVal;
+    if (field !== null && field !== '') {
+        returnVal = field;
+    } else {
+        returnVal = 'N/A';
+    }
+    return returnVal;
+}
 /*** Date Picker ***/
 function getDate( element ) {
       var date;
@@ -103,7 +108,6 @@ function getDate( element ) {
  
       return date;
 }
-
 $( function() {
     var dateFormat = "mm/dd/yy",
       from = $( "#fromDate" )
@@ -124,11 +128,7 @@ $( function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
       });    
   });
-
-/**********************
-*** Event Listeners ***
-***********************/
-
+/*** Event Listeners ***/
 $(document).ready(function(){
     mobileNavScroll();
     

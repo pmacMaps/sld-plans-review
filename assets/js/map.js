@@ -135,19 +135,18 @@ planSubmissions.bindPopup(function(evt, layer) {
     var formattedLandUse = returnDomainText(landUseField);
     // test for null values in square footage field
     var sqFtField = evt.feature.properties.SQFT;
-    var sqFtVal;
-    if (sqFtField !== null && sqFtField !== '') {
-        sqFtVal = sqFtField;
-    } else {
-        sqFtVal = 'N/A';
-    }
+    var sqFtVal = testforFiedlValues(sqFtField);
+    // test for null values in units field
+    var unitsField = evt.feature.properties.UNITS
+    var unitsVal = testforFiedlValues(unitsField);
     // return popup content
     var popupContent = '<div class="feat-popup">';
     popupContent += '<h3><span class="gray-text">Plan Name:</span> {NAME}</h3>';
     popupContent += '<ul>';
     popupContent += '<li><span class="gray-text">Land Use:</span> ' + formattedLandUse  + '</li>';
-    popupContent += '<li><span class="gray-text">Date Reviewed:</span> ' + formattedDate + '</li>';
-    popupContent += '<li><span class="gray-text">Square Footage:</span> ' + sqFtVal + '</li>';   
+    popupContent += '<li><span class="gray-text">Date Received:</span> ' + formattedDate + '</li>';
+    popupContent += '<li><span class="gray-text">Square Footage:</span> ' + sqFtVal + '</li>';
+     popupContent += '<li><span class="gray-text">Number of Proposed Units:</span> ' + unitsVal + '</li>';
     popupContent += '</ul>';
     popupContent += '<h4><strong>Description:</strong></h4>';
     popupContent += '<p>{DESCRIPTION}</p>';
