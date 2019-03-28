@@ -45,7 +45,8 @@ body {
     font-size: 1.75em;
 }
 /* error message modal */
-#layerErrorModal {
+#layerErrorModal,
+#dateErrorModal {
    display: none;
    z-index: 2000;
 }
@@ -183,9 +184,11 @@ div.leaflet-popup-content span.gray-text {
     }   
     li.dropdown.open ul.dropdown-menu li:active {
         background: #75a8c9;          
-    } 
+    }
+    #ui-datepicker-div {
+        z-index: 1500 !important;
+    }
 }
-
 @media screen and (min-width: 768px) and (max-width: 875px) {
     .calcite-maps .navbar-title {
         font-size: 1.05em;
