@@ -1,7 +1,13 @@
 # Subdivision & Land Development Plans Review App
 
 ## Summary
-A web map app showing submitted subdivision and land development plans in Cumberland County, PA.
+This is an interactive web map developed for the [Cumberland County Planning Commission](https://www.ccpa.net/120/Planning-Department).  Its purpose is the show the location and details for subdivision and land development plans that are submitted to the Planning Department for review and comment.
+
+The map features a widget that allows users to filter plans by the month the plan was received.  There are also widgets/tools that allow users to zoom to a selected municipality (subdivision of County government), or search for a street address.
+
+My goal in putting this project on GitHub is to provide other government agencies a sample app, from which they can build their own solutions.  This project uses the Leaflet.js library (and various plugins), a Bootstrap "theme," and Esri REST map services using a custom tiling scheme.
+
+[Live Web App Link](https://gis.ccpa.net/sld/activity/)
 
 ## Libraries
 #### Web Mapping
