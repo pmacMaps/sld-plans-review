@@ -39,7 +39,7 @@ function addressLocator(windowArea) {
         // make sure there is a result
         if (data.results.length > 0) {
             // set map view
-            map.setView(data.results[0].latlng, 6);
+            map.setView(data.results[0].latlng, 7);
             
             // open pop-up for location
             var popup = L.popup({closeOnClick: true}).setLatLng(data.results[0].latlng).setContent(data.results[0].text).openOn(map);             
