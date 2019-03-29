@@ -38,7 +38,7 @@ function createMapLegend(url,element) {
 				}
 				html += '</ul>';
 			}
-        } else {
+                } else {
 			html+= '<h4>There was an error creating the legend</h4>';
 		}		
 		$(element).prepend(html);		
@@ -181,5 +181,5 @@ $(document).ready(function(){
     $(window).resize(function() {
         mobileNavScroll();
         attachSearch();        
-    });    
+    });
 });
