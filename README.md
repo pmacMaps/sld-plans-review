@@ -5,6 +5,11 @@ This is an interactive web map developed for the [Cumberland County Planning Com
 
 The map features a widget that allows users to filter plans by the month the plan was received.  There are also widgets/tools that allow users to zoom to a selected municipality (subdivision of County government), or search for a street address.
 
+Our Planning staff update the layer feeding the map service on a file geodatabase on their shared network drive.  We have a weekly scheduled task that runs a Python script to copy the dataset from their network drive to a file geodatabase on our ArcGIS Server machine.
+
+Another workflow would be to have the layer published as a feature service (ArcGIS Online or ArcGIS Server), and have the people edit the layer directly through a desktop client (ArcGIS Pro).
+
+## Purpose
 My goal in putting this project on GitHub is to provide other government agencies a sample app, from which they can build their own solutions.  This project uses the Leaflet.js library (and various plugins), a Bootstrap "theme," and Esri REST map services using a custom tiling scheme.
 
 [Live Web App Link](https://gis.ccpa.net/sld/activity/)
