@@ -15,8 +15,7 @@ var imagery2018;
 var roadsMunicipality;
 var legendRoadsMuni;
 var planSubmissions;
-var legendPlanSubmissions;
-/* loading screen */
+// loading screen
 var loadScreenTimer;
 /*** Functions ***/
 //  Basemap Changer
@@ -90,7 +89,7 @@ map = L.map('map', {
    zoomControl: false,
    crs: spcPACrs,
    minZoom: 0,
-   maxZoom: 7
+   maxZoom: 8
 });
 // Zoom Home Control
 zoomHomeControl = L.Control.zoomHome({
@@ -103,7 +102,7 @@ zoomHomeControl = L.Control.zoomHome({
 // 2018 Imagery - cached map service
 imagery2018 = L.esri.tiledMapLayer({
     url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/Imagery2018/MapServer',
-    maxZoom: 7,
+    maxZoom: 8,
     minZoom: 0,
     continuousWorld: true,
     attribution: 'Cumberland County',
@@ -113,7 +112,7 @@ imagery2018 = L.esri.tiledMapLayer({
 // Roads & Municipal Boundaries - cached map service
 roadsMunicipality = L.esri.tiledMapLayer({
     url: 'https://gis.ccpa.net/arcgiswebadaptor/rest/services/ArcGIS_Online/RoadsMunicipalBoundaries/MapServer',
-    maxZoom: 7,
+    maxZoom: 8,
     minZoom: 0,
     continuousWorld: true,
     attribution: 'Cumberland County',
@@ -172,7 +171,6 @@ planSubmissions.bindPopup(function(evt, layer) {
     popupContent += '</div>';    
     return L.Util.template(popupContent, evt.feature.properties);		
 }, {closeOnClick: true, maxHeight: setPopupMaxHeight(windowArea), maxWidth: setPopupMaxWidth(windowWidth)});
-
 // array of map services to run loading function on
 mapServices = [imagery2018,roadsMunicipality, planSubmissions];
 // call load/error events function on layers
