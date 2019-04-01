@@ -31,3 +31,4 @@ My goal in putting this project on GitHub is to provide other government agencie
 - [Esri Calcite Maps](https://github.com/Esri/calcite-maps): Bootstrap theme for web map apps
 - [jQuery](https://github.com/jquery/jquery): Bootstrap requires it, so I might as well use it!
 - [jQuery UI](https://github.com/jquery/jquery-ui): date selector for feature layer filter widget
+- [Font Awesome](https://github.com/FortAwesome/Font-Awesome): Various icons used for UI elements.
