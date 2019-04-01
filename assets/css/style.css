@@ -144,6 +144,9 @@ span.glyphicon.glyphicon-menu-hamburger {
 .panel-body a {
     text-decoration: underline;
 }
+#panelFilter .panel-body {
+    min-height: 375px;
+}
 /*** Layer Popups ***/
 div.leaflet-popup-content {
     font-size: 1.15em;
