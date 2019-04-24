@@ -191,6 +191,7 @@ createMapLegend('https://gis.ccpa.net/arcgiswebadaptor/rest/services/Planning/Pl
 // filter logic
 function clearFilter() {
     planSubmissions.setWhere("");
+    $('#panelFilter').collapse("hide");
 }
 function setFilter() {
     // beginning date
@@ -204,6 +205,8 @@ function setFilter() {
     // get count of features
     // if no features exist, add message
     // call clearFilter()
+    // hide panel
+    $('#panelFilter').collapse("hide");
 }
 // add event listeners
 $('#setFilter').click(setFilter);
@@ -219,7 +222,7 @@ loadScreenTimer = window.setInterval(function() {
         // remove loading screen
         window.setTimeout(function() {
         backCover.fadeOut('slow');         
-       }, 2000);
+       }, 4000);
         
         // clear timer
         window.clearInterval(loadScreenTimer);        
