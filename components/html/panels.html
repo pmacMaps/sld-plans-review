@@ -1,0 +1,253 @@
+<!-- about widget -->
+<div id="aboutModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">About the Map</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>The Plan Submission Review Map web-map was created in March 2019 by the <a href="https://www.ccpa.net/116/Geographic-Information-Systems-GIS" target="_blank" rel="noopener">Cumberland County GIS Department</a> under direction from the <a href="https://www.ccpa.net/120/Planning-Department" target="_blank" rel="noopener">Cumberland County Planning Department</a>.</p>
+			<p>The map is a useful tool for municipal and county officials as well as residents and other stakeholders to monitor subdivision and land development activity throughout the County.</p>
+			<p>The web-map will include information about each plan officially submitted to the Cumberland County Planning Department for review and comments after January 1, 2019.</p> <p>Map developed by <a href="https://www.ccpa.net/116/Geographic-Information-Systems" target="_blank" rel="noopener"><strong>Cumberland County GIS</strong></a>.</p>
+			<p>Vist our <a href="http://ccpa.maps.arcgis.com/home/gallery.html" target="_blank" rel="noopener">Map Gallery!</a></p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- search widget (for mobile) -->
+<div id="searchModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Search Widget</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <div id="geocodeMobile"></div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- filter widget -->
+<div id="filterModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Filter Plans By Date</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Use this tool to view plans submitted within a specified time range.  Select/Press "Apply Filter" to view the plans within the time range.
+			</p>
+			<br />
+			<div class="form-group">
+				<label for="fromDate">Start Date:</label>
+				<input class="form-control" type="text" id="fromDate" name="from">
+			</div>
+			<div class="form-group">
+				<label for="toDate">End Date:</label>
+				<input class="form-control" type="text" id="toDate" name="to">
+			</div>
+			<div class="form-group">
+				<button type="button" id="setFilter" class="btn btn-secondary">Apply Filter</button>
+			</div>
+			<div class="form-group">
+				<button type="button" id="clearFilter" class="btn btn-secondary">Clear Filter</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Select By Year Pane -->
+<div id="filterYearModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Filter Plans By Year</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Use this tool to view plans submitted within a specific year.</p>
+			<p>Select a year from the list below:</p>
+            <br />
+			<div class="form-group">
+				<select class="form-control" id="plansSelectedYear">
+					<option value="" disabled selected>Select Year</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Select By Start and End Year Panel -->
+<div id="filterMultiYearModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Filter Plans By Multiple Year</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Use this tool to view plans submitted within a range of years.</p>
+			<p>Select a starting and ending year.</p>
+			<br />
+			<!-- Start Year -->
+			<div class="form-group">
+				<label for="plansStartYear">Start Year</label>
+				<select class="form-control" id="plansStartYear">
+					<option value="" disabled selected>Select Year</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</div>
+			<!-- End Year -->
+			<div class="form-group">
+				<label for="plansEndYear">End Year</label>
+				<select class="form-control" id="plansEndYear">
+					<option value="" disabled selected>Select Year</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<button type="button" id="setFilterMultipleYears" class="btn btn-secondary">Apply Filter</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Zoom To Muni Panel -->
+<div id="muniZoomModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Map LegendZoom To Municipality</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Select a municipality below to zoom to it:</p>
+			<select id="selectMuni" class="form-control">
+				<option value="Default">Select A Municipality</option>
+				<option value="Camp Hill">Camp Hill Borough</option>
+				<option value="Carlisle">Carlisle Borough</option>
+				<option value="Cooke">Cooke Township</option>
+				<option value="Dickinson">Dickinson Township</option>
+				<option value="East Pennsboro">East Pennsboro Township</option>
+				<option value="Hampden">Hampden Township</option>
+				<option value="Hopewell">Hopewell Township</option>
+				<option value="Lemoyne">Lemoyne Borough</option>
+				<option value="Lower Allen">Lower Allen Township</option>
+				<option value="Lower Frankford">Lower Frankford Township</option>
+				<option value="Lower Mifflin">Lower Mifflin Township</option>
+				<option value="Mechanicsburg">Mechanicsburg Borough</option>
+				<option value="Middlesex">Middlesex Township</option>
+				<option value="Monroe">Monroe Township</option>
+				<option value="Mt. Holly Springs">Mt. Holly Springs Borough</option>
+				<option value="New Cumberland">New Cumberland Borough</option>
+				<option value="Newburg">Newburg Borough</option>
+				<option value="Newville">Newville Borough</option>
+				<option value="North Middleton">North Middleton Township</option>
+				<option value="North Newton">North Newton Township</option>
+				<option value="Penn">Penn Township</option>
+				<option value="Shippensburg Boro">Shippensburg Borough</option>
+				<option value="Shippensburg Twp">Shippensburg Township</option>
+				<option value="Shiremanstown">Shiremanstown Borough</option>
+				<option value="Silver Spring">Silver Spring Township</option>
+				<option value="South Middleton">South Middleton Township</option>
+				<option value="South Newton">South Newton Township</option>
+				<option value="Southampton">Southampton Township</option>
+				<option value="Upper Allen">Upper Allen Township</option>
+				<option value="Upper Frankford">Upper Frankford Township</option>
+				<option value="Upper Mifflin">Upper Mifflin Township</option>
+				<option value="West Pennsboro">West Pennsboro Township</option>
+				<option value="Wormleysburg">Wormleysburg Borough</option>
+			</select>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- legend widget -->
+<div id="legendModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Map Legend</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <div id="map-legend-content"></div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- disclaimer widget -->
+<div id="disclaimerModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Disclaimer</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Cumberland County provides these Geographic Information System (GIS) maps and data on its web site as a public information service.  Every reasonable effort has been made to assure the accuracy of these maps and data.  No guarantee is made as to the accuracy of the maps and data and they should not be relied upon for any purpose other than general information.</p>
+		  <p>CUMBERLAND COUNTY ASSUMES NO LIABILITY ARISING FROM USE OF THESE MAPS OR DATA. THE MAPS AND DATA ARE PROVIDED WITHOUT WARRANTY OF ANY KIND.</p>
+		  <p>PROPRIETARY INFORMATION:  All information on this website is proprietary.  Any resale of this information is prohibited.</p>
+		  <p>Contents: &copy; 2021 Cumberland County, Pennsylvania. </p>
+		  <p>BY USING THIS DATA, I UNDERSTAND AND KNOWINGLY CONSENT TO THE ABOVE TERMS AND CONDITIONS.</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>

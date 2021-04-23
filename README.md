@@ -3,11 +3,9 @@
 ## Summary
 This is an interactive web map developed for the [Cumberland County Planning Commission](https://www.ccpa.net/120/Planning-Department).  Its purpose is the show the location and details for subdivision and land development plans that are submitted to the Planning Department for review and comment.
 
-The map features a widget that allows users to filter plans by the month the plan was received.  There are also widgets/tools that allow users to zoom to a selected municipality (subdivision of County government), or search for a street address.
+The map features mulitple widgets that allow users to filter plans by a date range, a single year, or multiple years.  There are also widgets/tools that allow users to zoom to a selected municipality (subdivision of County government), or search for a street address.
 
-Our Planning staff update the layer feeding the map service on a file geodatabase on their shared network drive.  We have a weekly scheduled task that runs a Python script to copy the dataset from their network drive to a file geodatabase on our ArcGIS Server machine.
-
-Another workflow would be to have the layer published as a feature service (ArcGIS Online or ArcGIS Enterprise), and have the people edit the layer directly through a desktop client (ArcGIS Pro).
+Our Planning staff edit the plans layer in ArcGIS Enterprise.  The dataset is housed in an enterprise geodatabase.  The dataset is published as an editable feature service, as well as a non-editable map service.
 
 ## Purpose
 My goal in putting this project on GitHub is to provide other government agencies a sample app, from which they can build their own solutions.  This project uses the Leaflet.js library (and various plugins), a Bootstrap "theme," and Esri REST map services (including a custom tiling scheme).

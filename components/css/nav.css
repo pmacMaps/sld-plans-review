@@ -1,0 +1,28 @@
+/* navigation bar */
+nav ul.dropdown.dropdown-menu {
+    right: 10px;
+    left: inherit;
+  }
+
+  nav button.nav-link.dropdown-toggle {
+      background-color: #000;
+      border-color: #fff;
+      border: none;
+      transition: background-color 0.125s ease-in-out, color 0.125s ease-in-out;
+  }
+
+  nav button.nav-link.dropdown-toggle:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  nav button.dropdown-item {
+    border-bottom: 1px solid #888;
+    border-top: 1px solid #fff;
+    border-radius: 0;
+  }
+
+  nav button.dropdown-item:hover {
+    border-bottom-color: #000;
+    border-top-color: #000;
+  }

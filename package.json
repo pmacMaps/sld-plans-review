@@ -1,0 +1,41 @@
+{
+  "name": "leaflet-map-grunt",
+  "version": "0.2.0",
+  "description": "Local development environment settings to build my Leaflet.js map apps with Grunt.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "leaflet",
+    "grunt",
+    "maps",
+    "gis"
+  ],
+  "author": "Patrick McKinney",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.x",
+    "grunt-babel": "^8.x",
+    "grunt-contrib-concat": "^1.x",
+    "grunt-contrib-connect": "^2.x",
+    "grunt-contrib-copy": "^1.x",
+    "grunt-contrib-csslint": "^2.x",
+    "grunt-contrib-cssmin": "^3.x",
+    "grunt-contrib-htmlmin": "^3.x",
+    "grunt-contrib-jshint": "^2.x",
+    "grunt-contrib-uglify": "^4.x",
+    "grunt-contrib-uglify-es": "^3.x",
+    "grunt-contrib-watch": "^1.x",
+    "grunt-uncss": "^0.x"
+  },
+  "dependencies": {
+    "bootstrap": "^3.x",
+    "esri-leaflet": "^2.x",
+    "esri-leaflet-geocoder": "^2.x",
+    "esri-leaflet-legend": "^2.x",
+    "esri-leaflet-renderers": "^2.x",
+    "jquery": "^3.x",
+    "leaflet": "^1.x"
+  }
+}

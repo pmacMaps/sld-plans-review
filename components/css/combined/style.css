@@ -1,0 +1,340 @@
+/*** General Settings ***/
+/* General */
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+
+  html,
+  body,
+  #container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* due to fixed header */
+  body {
+    padding-top: 64px;
+  }
+
+  .table {
+    margin-bottom: 0px;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin: 0;
+  }
+
+  .text-small {
+    font-size: 0.8em;
+  }
+
+  /* Colors */
+  body,
+  .leaflet-container a.leaflet-popup-close-button {
+    color: #333;
+  }
+
+  .white {
+    color: #fff;
+  }
+
+  /* blue theme color */
+  header,
+  div.modal button.btn,
+  #panelResults button.btn {
+    background-color: #196fa6;
+  }
+
+  div.modal button.btn:hover,
+  #panelResults button.btn:hover {
+    background-color: #000;
+  }
+
+  button.close span {
+    transition: color 0.125s ease-in-out;
+  }
+
+  button.close span:hover {
+    color: #888;
+  }
+
+.filter-ui {
+    position: absolute;
+    left: 10px;
+    bottom: 25px;
+    z-index: 650;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #000;
+    font-size: 1.05em;
+}
+
+#startDateUI,
+#endDateUI {
+    font-weight: bold;
+}
+
+noscript div {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 3000;
+    height: 100%;
+    width: 100%;
+    padding: 4em;
+    background-color: #FFFFFF;
+    font-size: 1.25em;
+}
+
+noscript p:last-child {
+    font-weight: bold;
+}/* Loading Screen */
+#back-cover {
+    background: rgba(191, 191, 191, 1);
+    margin-top: 64px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    color: #222;
+    z-index: 1000;
+  }
+
+  #back-cover span {
+    font-weight: bold;
+    font-size: 1.75em;
+    margin-bottom: 15px;
+  }
+
+  .map-loader-icon,
+  .waiting-loader-icon {
+    border: 10px solid #fff;
+    border-top: 10px solid #222;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+  }
+
+  .map-loader-icon {
+    width: 75px;
+    height: 75px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }/* Modals */
+div.modal button.close,
+#panelResults button.close {
+  opacity: 1;
+}
+
+div.modal button.btn {
+  border-color: #000;
+}
+
+#searchModal .modal-body {
+  min-height: 250px;
+}
+
+#filterModal .modal-body,
+#filterMultiYearModal .modal-body {
+    min-height: 375px;
+}
+
+/* error message modal */
+#layerErrorModal,
+#dateErrorModal {
+   display: none;
+   z-index: 2000;
+}
+
+.modal-content {
+    max-width: 100%;
+    word-wrap: break-word;
+}/* navigation bar */
+nav ul.dropdown.dropdown-menu {
+    right: 10px;
+    left: inherit;
+  }
+
+  nav button.nav-link.dropdown-toggle {
+      background-color: #000;
+      border-color: #fff;
+      border: none;
+      transition: background-color 0.125s ease-in-out, color 0.125s ease-in-out;
+  }
+
+  nav button.nav-link.dropdown-toggle:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  nav button.dropdown-item {
+    border-bottom: 1px solid #888;
+    border-top: 1px solid #fff;
+    border-radius: 0;
+  }
+
+  nav button.dropdown-item:hover {
+    border-bottom-color: #000;
+    border-top-color: #000;
+  }/* Map */
+#map {
+    width: auto;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* map controls */
+.leaflet-control-zoomhome.leaflet-bar > a,
+.leaflet-control-locate.leaflet-bar > a {
+  width: 32px;
+	height: 32px;
+	line-height: 32px;
+	border-radius: 0;
+}
+
+.leaflet-control-zoomhome,
+.leaflet-control-zoomhome-out {
+    font-size: 1.75em;
+}
+
+.leaflet-bar a,
+div.modal button.btn,
+#panelResults button.btn {
+  transition: background-color 0.125s ease-in-out;
+}
+
+.leaflet-bar a:hover,
+nav button.dropdown-item:hover {
+  background-color: #ddd;
+}
+
+/* popup for tax parcels */
+.feat-popup {
+  font-size: 1.2em;
+}
+
+/* Geocoder control */
+#geocode input,
+#geocodeMobile input {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 0;
+  border: 1px solid #000;
+  box-shadow: none;
+}
+
+.geocoder-control-suggestions {
+  width: auto;
+}/*** Layer Popups ***/
+.leaflet-popup-content-wrapper {
+    border-radius: 0;
+}
+
+div.feat-popup {
+    font-size: 1.15em;
+    color: #000;
+}
+
+div.feat-popup h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+	text-align: center;
+}
+
+div.feat-popup h4 {
+    font-size: 1.2em;
+}
+
+div.feat-popup ul {
+    margin-bottom: 20px;
+    padding-left: 5px;
+    list-style-type: square;
+}
+
+div.feat-popup span.gray-text {
+    color: #444;
+}/* Media Queries */
+@media screen and (max-width: 576px) {
+
+    body {
+      padding-top: 84px;
+    }
+
+    h1.navbar-brand {
+      font-size: 1.05em;
+      max-width: 200px;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    header > div img {
+      vertical-align: unset;
+    }
+
+    #geocodeMobile input,
+    .geocoder-control-expanded {
+      width: 100%;
+    }
+
+    .geocoder-control-suggestions {
+      max-width: 100%;
+
+    }
+
+    /* have suggestions break onto multiple lines */
+    .geocoder-control-suggestions .geocoder-control-suggestion {
+      overflow-wrap: break-word;
+      word-break: break-all;
+      overflow: visible;
+      white-space: break-spaces;
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+
+    ul.dropdown.dropdown-menu {
+      overflow-y: auto;
+      max-height: 250px;
+    }
+
+  }

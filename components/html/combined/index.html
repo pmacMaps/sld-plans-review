@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Plan Submissions Review Map</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="The Plan Submission Review Map is a useful tool for municipal and county officials, as well as residents and other stakeholders to monitor subdivision and land development activity throughout Cumberland County, Pennsylvania.">
+    <meta name="author" content="Cumberland County GIS">
+    <link rel="icon" href="https://gis.ccpa.net/gis_images/favicon.ico">
+    <link type="image/ico" rel="shortcut icon" href="https://gis.ccpa.net/gis_images/favicon.ico">
+
+    <!-- Facebook sharing -->
+    <meta property="og:type" content="article" />
+	<meta property="og:title" content="Plan Submissions Review Map" />
+	<meta property="og:image" content="assets/img/plan-reviewed-by-staff.jpg" />
+	<meta property="og:description" content="An interactive web map that is a useful tool for municipal and county officials as well as residents and other stakeholders to monitor subdivision and land development activity throughout Cumberland County." />
+
+    <!-- Stylesheets -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://gis.ccpa.net/assets/font-awesome/fa-4.7.0/css/font-awesome.min.css" />
+    <!-- Leaflet -->
+    <link rel="stylesheet" type="text/css" href="https://gis.ccpa.net/assets/leaflet/foundation/v-1.6.0/leaflet.css" />
+    <!-- bundled stylesheets for plugins-->
+    <link rel="stylesheet" href="https://gis.ccpa.net/assets/leaflet/bundled/css/leaflet-plugins.min.css" />
+    <!-- App Custom Styles -->
+    <link rel="stylesheet" href="assets/css/style.min.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1529470-4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-1529470-4');
+    </script>
+
+  </head><body>
+    <header class="fixed-top navbar">
+      <!-- title, subtitle, org image -->
+      <div class="justify-content-start">
+        <a class="navbar-brand" href="https://www.ccpa.net/" target="_blank" rel="noopener">
+          <img height="35" width="35" class="img-fluid d-none d-sm-inline-block" src="//gis.ccpa.net/gis_images/CCPALogo_61x61px.gif" alt="cumberland county logo" />
+        </a>
+        <h1 class="navbar-brand white">Plan Submissions Review Map</h1>
+        <span class="white d-none d-md-inline"> Cumberland County, PA</span>
+      </div>
+      <!-- Desktop Search (in modal for mobile) -->
+      <div class="d-sm-none d-md-none d-lg-block justify-content-center">
+        <form>
+          <div id="geocode"></div>
+        </form>
+      </div>
+      <!-- Navigation -->
+      <nav class="nav justify-content-end">
+        <!-- navigation menu -->
+          <button class="nav-link dropdown-toggle white font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
+          <ul class="dropdown dropdown-menu">
+              <li><button id="about-btn" class="btn dropdown-item">About the Map</button></li>
+              <li><button id="search-btn" class="btn dropdown-item d-sm-block d-md-block d-lg-none">Search</button></li>
+              <li><button id="std-filter-btn" class="btn dropdown-item">Filter Plans By Date</button></li>
+              <li><button id="year-filter-btn" class="btn dropdown-item">Filter Plans By Year</button></li>
+              <li><button id="multi-year-filter-btn" class="btn dropdown-item">Filter Plans By Multiple Years</button></li>
+              <li><button id="muni-zoom-btn" class="btn dropdown-item">Zoom To Municipality</button></li>
+              <li><button id="legend-btn" class="btn dropdown-item">Map Legend</button></li>
+              <li><button id="disclaimer-btn" class="btn dropdown-item">Disclaimer</button></li>
+          </ul>
+      </nav>
+    </header><div id="container">
+    <!-- displays date filter applied to data-->
+    <div class="filter-ui">
+        <p>Date Filter:
+            <span id="startDateUI"></span>
+            through
+            <span id="endDateUI"></span>
+        </p>
+    </div>
+    <div id="map"></div> <!-- leaflet map goes in here -->
+</div>
+
+<!-- Loading Screen -->
+<div id="back-cover">
+    <span>Map Loading &#46;&#46;&#46;</span>
+    <span class="map-loader-icon"></span>
+</div><!-- about widget -->
+<div id="aboutModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">About the Map</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>The Plan Submission Review Map web-map was created in March 2019 by the <a href="https://www.ccpa.net/116/Geographic-Information-Systems-GIS" target="_blank" rel="noopener">Cumberland County GIS Department</a> under direction from the <a href="https://www.ccpa.net/120/Planning-Department" target="_blank" rel="noopener">Cumberland County Planning Department</a>.</p>
+			<p>The map is a useful tool for municipal and county officials as well as residents and other stakeholders to monitor subdivision and land development activity throughout the County.</p>
+			<p>The web-map will include information about each plan officially submitted to the Cumberland County Planning Department for review and comments after January 1, 2019.</p> <p>Map developed by <a href="https://www.ccpa.net/116/Geographic-Information-Systems" target="_blank" rel="noopener"><strong>Cumberland County GIS</strong></a>.</p>
+			<p>Vist our <a href="http://ccpa.maps.arcgis.com/home/gallery.html" target="_blank" rel="noopener">Map Gallery!</a></p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- search widget (for mobile) -->
+<div id="searchModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Search Widget</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <div id="geocodeMobile"></div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- filter widget -->
+<div id="filterModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Filter Plans By Date</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Use this tool to view plans submitted within a specified time range.  Select/Press "Apply Filter" to view the plans within the time range.
+			</p>
+			<br />
+			<div class="form-group">
+				<label for="fromDate">Start Date:</label>
+				<input class="form-control" type="text" id="fromDate" name="from">
+			</div>
+			<div class="form-group">
+				<label for="toDate">End Date:</label>
+				<input class="form-control" type="text" id="toDate" name="to">
+			</div>
+			<div class="form-group">
+				<button type="button" id="setFilter" class="btn btn-secondary">Apply Filter</button>
+			</div>
+			<div class="form-group">
+				<button type="button" id="clearFilter" class="btn btn-secondary">Clear Filter</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Select By Year Pane -->
+<div id="filterYearModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Filter Plans By Year</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Use this tool to view plans submitted within a specific year.</p>
+			<p>Select a year from the list below:</p>
+            <br />
+			<div class="form-group">
+				<select class="form-control" id="plansSelectedYear">
+					<option value="" disabled selected>Select Year</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Select By Start and End Year Panel -->
+<div id="filterMultiYearModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Filter Plans By Multiple Year</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Use this tool to view plans submitted within a range of years.</p>
+			<p>Select a starting and ending year.</p>
+			<br />
+			<!-- Start Year -->
+			<div class="form-group">
+				<label for="plansStartYear">Start Year</label>
+				<select class="form-control" id="plansStartYear">
+					<option value="" disabled selected>Select Year</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</div>
+			<!-- End Year -->
+			<div class="form-group">
+				<label for="plansEndYear">End Year</label>
+				<select class="form-control" id="plansEndYear">
+					<option value="" disabled selected>Select Year</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<button type="button" id="setFilterMultipleYears" class="btn btn-secondary">Apply Filter</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Zoom To Muni Panel -->
+<div id="muniZoomModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Map LegendZoom To Municipality</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<p>Select a municipality below to zoom to it:</p>
+			<select id="selectMuni" class="form-control">
+				<option value="Default">Select A Municipality</option>
+				<option value="Camp Hill">Camp Hill Borough</option>
+				<option value="Carlisle">Carlisle Borough</option>
+				<option value="Cooke">Cooke Township</option>
+				<option value="Dickinson">Dickinson Township</option>
+				<option value="East Pennsboro">East Pennsboro Township</option>
+				<option value="Hampden">Hampden Township</option>
+				<option value="Hopewell">Hopewell Township</option>
+				<option value="Lemoyne">Lemoyne Borough</option>
+				<option value="Lower Allen">Lower Allen Township</option>
+				<option value="Lower Frankford">Lower Frankford Township</option>
+				<option value="Lower Mifflin">Lower Mifflin Township</option>
+				<option value="Mechanicsburg">Mechanicsburg Borough</option>
+				<option value="Middlesex">Middlesex Township</option>
+				<option value="Monroe">Monroe Township</option>
+				<option value="Mt. Holly Springs">Mt. Holly Springs Borough</option>
+				<option value="New Cumberland">New Cumberland Borough</option>
+				<option value="Newburg">Newburg Borough</option>
+				<option value="Newville">Newville Borough</option>
+				<option value="North Middleton">North Middleton Township</option>
+				<option value="North Newton">North Newton Township</option>
+				<option value="Penn">Penn Township</option>
+				<option value="Shippensburg Boro">Shippensburg Borough</option>
+				<option value="Shippensburg Twp">Shippensburg Township</option>
+				<option value="Shiremanstown">Shiremanstown Borough</option>
+				<option value="Silver Spring">Silver Spring Township</option>
+				<option value="South Middleton">South Middleton Township</option>
+				<option value="South Newton">South Newton Township</option>
+				<option value="Southampton">Southampton Township</option>
+				<option value="Upper Allen">Upper Allen Township</option>
+				<option value="Upper Frankford">Upper Frankford Township</option>
+				<option value="Upper Mifflin">Upper Mifflin Township</option>
+				<option value="West Pennsboro">West Pennsboro Township</option>
+				<option value="Wormleysburg">Wormleysburg Borough</option>
+			</select>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- legend widget -->
+<div id="legendModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Map Legend</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <div id="map-legend-content"></div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- disclaimer widget -->
+<div id="disclaimerModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Disclaimer</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Cumberland County provides these Geographic Information System (GIS) maps and data on its web site as a public information service.  Every reasonable effort has been made to assure the accuracy of these maps and data.  No guarantee is made as to the accuracy of the maps and data and they should not be relied upon for any purpose other than general information.</p>
+		  <p>CUMBERLAND COUNTY ASSUMES NO LIABILITY ARISING FROM USE OF THESE MAPS OR DATA. THE MAPS AND DATA ARE PROVIDED WITHOUT WARRANTY OF ANY KIND.</p>
+		  <p>PROPRIETARY INFORMATION:  All information on this website is proprietary.  Any resale of this information is prohibited.</p>
+		  <p>Contents: &copy; 2021 Cumberland County, Pennsylvania. </p>
+		  <p>BY USING THIS DATA, I UNDERSTAND AND KNOWINGLY CONSENT TO THE ABOVE TERMS AND CONDITIONS.</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div><!-- Scripts -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<!-- Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+
+<!-- Leaflet -->
+<script src="https://gis.ccpa.net/assets/leaflet/foundation/v-1.6.0/leaflet.js"></script>
+
+<!-- Non Esri Leaflet Bundled Plugins -->
+<!-- Zoom Home; Full Screen; Locate -->
+<script src="https://gis.ccpa.net/assets/leaflet/bundled/js/leaflet-plugins.min.js"></script>
+
+<!-- Proj4JS -->
+<script src="https://gis.ccpa.net/Assets/leaflet/plugins/proj4js/v-2.7.2/proj4.js"></script>
+
+<!-- Proj4Leaflet -->
+ <script src="https://gis.ccpa.net/Assets/leaflet/plugins/proj4Leaflet/v-1.0.1/proj4leaflet.js"></script>
+
+<!-- Esri Leaflet Bundled Plugins -->
+<!-- Esri Leaflet; Esri Renderers; Esri Geocoder -->
+<script src="https://gis.ccpa.net/assets/leaflet/bundled/js/esri-leaflet-plugins.min.js"></script>
+
+<!-- Map Application -->
+<script src="assets/js/app.min.js"></script>
+
+<!-- No Script-->
+<noscript>
+    <div>
+        <p>You are trying to view an interactive map of reviewed subdivision and land development plans in Cumberland County, Pennsylvania.</p>
+        <p>This map requires JavaScript, but running JavaScript is not currently enabled by your web browser.</p>
+        <p>If you wish to view this map, please enable JavaScript in this browser or try a different browser.</p>
+    </div>
+</noscript>
+
+</body>
+</html>

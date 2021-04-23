@@ -1,0 +1,46 @@
+/* Media Queries */
+@media screen and (max-width: 576px) {
+
+    body {
+      padding-top: 84px;
+    }
+
+    h1.navbar-brand {
+      font-size: 1.05em;
+      max-width: 200px;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    header > div img {
+      vertical-align: unset;
+    }
+
+    #geocodeMobile input,
+    .geocoder-control-expanded {
+      width: 100%;
+    }
+
+    .geocoder-control-suggestions {
+      max-width: 100%;
+
+    }
+
+    /* have suggestions break onto multiple lines */
+    .geocoder-control-suggestions .geocoder-control-suggestion {
+      overflow-wrap: break-word;
+      word-break: break-all;
+      overflow: visible;
+      white-space: break-spaces;
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+
+    ul.dropdown.dropdown-menu {
+      overflow-y: auto;
+      max-height: 250px;
+    }
+
+  }
