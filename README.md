@@ -1,5 +1,8 @@
 # Subdivision & Land Development Plans Review App
 
+## Project Update
+I am currently refactoring this project to use modules instead of a Grunt.js build process.  I also no longer work for Cumberland County.  But I still think there is value in having this repository as a guide for other GIS developers working in the local government industry.  The [2.0 release](https://github.com/pmacMaps/sld-plans-review/releases/tag/2.0) of this project shows the code as it was using the Grunt.js process.
+
 ## Summary
 This is an interactive web map developed for the [Cumberland County Planning Commission](https://www.ccpa.net/120/Planning-Department).  Its purpose is the show the location and details for subdivision and land development plans that are submitted to the Planning Department for review and comment.
 
