@@ -338,3 +338,7 @@ div.feat-popup span.gray-text {
     }
 
   }
+
+  #back-cover {
+    display: none;
+  }
