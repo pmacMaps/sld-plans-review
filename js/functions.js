@@ -67,18 +67,6 @@ const resetDefaultOptionElement = (id) => {
     });
 };
 
-// set filter dates in user interface widget
-const setFilterUIWidgetContent = (startDate,endDate) => {
-    // start date span
-    const startDateSpan = document.getElementById('startDateUI');
-    // end date span
-    const endDateSpan = document.getElementById('endDateUI');
-
-    // set values
-    startDateSpan.innerHTML = startDate;
-    endDateSpan.innerHTML = endDate;
-};
-
 /* Document Ready */
 $(document).ready(function() {
     // zoom to muni widget

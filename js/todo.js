@@ -1,40 +1,4 @@
-// set UI widget
-setFilterUIWidgetContent(intialStartDate,initialEndDate);
 
-// filter logic
-function clearFilter() {
-    planSubmissions.setWhere(initialWhereClause);
-    // reset UI widget
-    setFilterUIWidgetContent(intialStartDate,initialEndDate);
-    // close modal
-    $('#filterModal').modal('hide');
-    // refresh plan submissions layer on map
-    planSubmissions.refresh();
-}
-
-function setFilter() {
-    // beginning date
-    const from = $('#fromDate').val();
-    // ending date
-    const to = $('#toDate').val();
-    // where clause for filter
-    const where_clause = `DATE >= date '${from}' AND DATE <= date '${to}'`;
-    // apply filter
-    planSubmissions.setWhere(where_clause);
-    // get count of features
-    // if no features exist, add message
-    // call clearFilter()
-    // reset UI widget
-    setFilterUIWidgetContent(from,to);
-    // close modal
-    $('#filterModal').modal('hide');
-    // refresh plan submissions layer on map
-    planSubmissions.refresh();
-}
-
-// add event listeners
-$('#setFilter').click(setFilter);
-$('#clearFilter').click(clearFilter);
 
 // filter by selected year
 $("#plansSelectedYear").on("change", function(e) {

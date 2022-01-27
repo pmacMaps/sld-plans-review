@@ -1,4 +1,4 @@
-import { homeCoords } from './constants.js';
+import { homeCoords, intialStartDate, initialEndDate } from './constants.js';
 import { spcPACrs } from './crs.js';
 import { zoomHomeControl, fullscreenControl } from './map-controls.js';
 import { locateControl } from './geolocate.js';
@@ -7,6 +7,14 @@ import { imagery2020, roadsMunicipality } from './layers.js';
 import { planSubmissions } from './plans-layer.js';
 import { processLoadEvent } from './map-functions.js'
 import { createMapLegend} from './map-legend.js';
+import { setFilter, clearFilter, setFilterUIWidgetContent } from './date-functions.js';
+
+// set UI widget
+setFilterUIWidgetContent(intialStartDate,initialEndDate);
+
+// add event listeners
+$('#setFilter').click(setFilter(planSubmissions));
+$('#clearFilter').click(clearFilter(planSubmissions));
 
 // web map
 export const map = L.map('map', {
