@@ -1,5 +1,5 @@
 // return text value from domain
-const returnDomainText = (value) => {
+export const returnDomainText = (value) => {
     let landUse;
     switch (value) {
             case 1:
@@ -27,7 +27,7 @@ const returnDomainText = (value) => {
 };
 
 // Convert JSON date format to plain language format
-const convertJSONDateToString = (jsonDate) => {
+export const convertJSONDateToString = (jsonDate) => {
     let shortDate;
     if (jsonDate) {
         const regex = /-?\d+/;
@@ -44,7 +44,7 @@ const convertJSONDateToString = (jsonDate) => {
 };
 
 // test for null or empty string values
-const testforFiedlValues = (field, defaultValue) => {
+export const testforFiedlValues = (field, defaultValue) => {
     let returnVal;
     if (field !== null && field !== '') {
         returnVal = field;
@@ -55,12 +55,12 @@ const testforFiedlValues = (field, defaultValue) => {
 };
 
 // re-format numbers with commas
-const returnNumberWithCommas = (x) => {
+export const returnNumberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 // set definition query for plan submissions layer
-const setDateQuery = (dateStart,dateEnd) => {
+export const setDateQuery = (dateStart,dateEnd) => {
     const definitionQuery = `DATE >= date '${dateStart}' AND DATE <= date '${dateEnd}'`;
     return definitionQuery;
 };

@@ -4,6 +4,7 @@ import { zoomHomeControl, fullscreenControl } from './map-controls.js';
 import { locateControl } from './geolocate.js';
 import { addressSearchControl } from './search.js';
 import { imagery2020, roadsMunicipality } from './layers.js';
+import { planSubmissions } from './plans-layer.js';
 import { processLoadEvent } from './map-functions.js'
 import { createMapLegend} from './map-legend.js';
 
@@ -25,7 +26,7 @@ addressSearchControl.addTo(map);
 
 // add layers to map
 // array of map services to run loading function on
-const mapServices = [imagery2020, roadsMunicipality];
+const mapServices = [imagery2020, roadsMunicipality, planSubmissions];
 // call load/error events function on layers
 mapServices.forEach(element => processLoadEvent(element));
 // add layers to map

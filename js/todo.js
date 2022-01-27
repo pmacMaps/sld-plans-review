@@ -1,8 +1,6 @@
 // set UI widget
 setFilterUIWidgetContent(intialStartDate,initialEndDate);
 
-
-
 // filter logic
 function clearFilter() {
     planSubmissions.setWhere(initialWhereClause);

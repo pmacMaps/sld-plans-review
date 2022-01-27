@@ -1,5 +1,7 @@
+import { setDateQuery} from './date-functions.js';
+
 // viewport
-const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+export const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 export const windowArea = windowWidth * windowHeight;
 // home coordinates
@@ -15,4 +17,4 @@ export const intialStartDate = startDate + currentYear;
 // initial end date
 export const initialEndDate = endDate + currentYear;
 // definition query for plan submissions layer
-//export const initialWhereClause = setDateQuery(intialStartDate,initialEndDate);
+export const initialWhereClause = setDateQuery(intialStartDate,initialEndDate);
